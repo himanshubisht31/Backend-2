@@ -2,7 +2,7 @@ const mongoose=require('mongoose')
 
 const studentSchema = new mongoose.Schema({
     roll_number:{type:Number,required:true},
-    batch: [{ type: String }],
+    batch: { type: String },
     user: {
         type: mongoose.Types.ObjectId,
         ref: 'users',
