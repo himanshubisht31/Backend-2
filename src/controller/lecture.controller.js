@@ -29,15 +29,46 @@ router.get("/", async (req, res) => {
 
 
 router.patch(
-  "/",
+  "/:id",
   authenticate,
-  authorize(["instructor", "admin"]),
+  authorize(["admin"]),
   async (req, res) => {
     try {
-      const lecture = await Lecture.create(req.body);
-      return res.status(200).send({ lecture: lecture });
+      const lecture = await Lecture.findByIdAndUpdate(req.params.id,req.body,{new:true});
+      return res.status(200).send(lecture );
     } catch (error) {
       return res.status(400).send(error.message);
     }
   }
 );
+
+
+router.delete(
+  "/:id",
+  authenticate,
+  authorize(["admin"]),
+  async (req, res) => {
+    try {
+      const lecture = await Lecture.findByIdAndUpdate(req.params.id,req.body);
+      return res.status(200).send(lecture );
+    } catch (error) {
+      return res.status(400).send(error.message);
+    }
+  }
+);
+
+
+router.get(
+  "/:id",
+  async (req, res) => {
+    try {
+      const lecture = await Lecture.find(req.params.id);
+      return res.status(200).send(lecture );
+    } catch (error) {
+      return res.status(400).send(error.message);
+    }
+  }
+);
+
+
+module.exports=router
