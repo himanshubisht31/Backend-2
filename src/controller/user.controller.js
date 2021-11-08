@@ -1,9 +1,9 @@
 const express=require('express')
-const User=require('../model/user.model')
-
+const User = require('../model/user.model')
+const authenticate=require('../middleware/authenticate')
 const router = express.Router()
 
-router.get('/', async (req, res) => {
+router.get('/',authenticate, async (req, res) => {
     const user = await User.find().lean().exec()
     return res.send(user)
 })
